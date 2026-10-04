@@ -8,6 +8,7 @@ Two rules, the same ones from the Husky Tech agent:
 
 import os
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 from typing import Any
 
 import requests
@@ -357,6 +358,22 @@ def get_transit_info(city: str) -> str:
     return _search(query)
 
 
+
+# NOTE: I added this extra current date function to help the agent when 
+# the prompt includes "weekend" or "next week". This is mainly for case 8a. 
+# I'm not sure if this is required. 
+@tool
+def get_current_date() -> str:
+    """Get today's date and day of the week.
+
+    Call this whenever the user says "today", "tonight", "tomorrow", "this
+    weekend" or "next Friday", so you know which calendar date they mean. Then  pass real YYYY-MM-DD dates to the other tools.
+    Times are US Eastern.
+    """
+    now = datetime.now(ZoneInfo("America/New_York"))
+    return f"Today is {now.strftime('%A')} {now.date().isoformat()}."
+
+
 @tool
 def find_performer_events(performer: str, city: str, date: str = "") -> str:
     """Find when and where a specific performer, team, or touring show plays in a city.
@@ -448,4 +465,4 @@ def find_performer_events(performer: str, city: str, date: str = "") -> str:
 
 
 TOOLS = [get_weather, find_attractions, find_restaurants, find_events,
-         get_transit_info, find_performer_events]
+         get_transit_info, find_performer_events, get_current_date]
