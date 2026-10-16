@@ -1,7 +1,7 @@
 
 Deployed app: https://dada1-3370.onrender.com/
 
-# DADA1: Trip Planner Agent
+Trip Planner Agent
 
 A conversational trip-planning agent running on Gemini Flash. Ask for something like "plan me a day in Boston tomorrow, free things and a cheap lunch" and it checks the weather, finds sights and food, and returns a plan with source URLs. Follow-ups such as "make it cheaper" or "add dinner" adjust the existing plan rather than starting over. A **Build itinerary from this conversation** button turns the chat into a structured `Itinerary` record (days, then activities).
 
